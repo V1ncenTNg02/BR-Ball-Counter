@@ -1,8 +1,8 @@
 import React from 'react'
 
-const Login = () => {
+const Signin = () => {
   return(
-    <div id = "Login">
+    <div id = "Signin">
       <div id = "titleWrapper">
         <h1 id = "title">Enter your user name to see today's color</h1>
       </div>
@@ -14,4 +14,4 @@ const Login = () => {
   )
 }
 
-export default Login;
+export default Signin;
