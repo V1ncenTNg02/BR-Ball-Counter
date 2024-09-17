@@ -7,6 +7,6 @@ Requirement:
 - The test should work in any browser (including Chrome). Style as necessary (it is very much appreciated if you do).
 - Code should be written in Javascript and feel free to use a framework for building the page/application. Any cookie functionality should not be abstracted by jQuery or any other module provided by NPM or the like.
 
-Frontend:React (JavaScript)
+Frontend:React
 
-Backend: Node.js + SQL
+Backend: Node.js + Express + SQL
