@@ -1,6 +1,6 @@
 import React from 'react';
-import Redball from '../../public/assets/Redball.png';
-import Blueball from '../../public/assets/Bluevall.png';
+import Redball from '../assets/Redball.png';
+import Blueball from '../assets/Blueball.png';
 
 const BRBall = (color) => {
   return(
