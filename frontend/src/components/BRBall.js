@@ -1,12 +1,12 @@
 import React from 'react';
-import Redball from '../assets/Redball.png';
-import Blueball from '../assets/Blueball.png';
+import Redball from '../assets/Redball.jpg';
+import Blueball from '../assets/Blueball.jpg';
 
-const BRBall = (color) => {
+const BRBall = (ballColor) => {
   return(
     <div className = "imgWrapper">
       {
-        color === "blue" 
+        ballColor === "red" 
       ? <img src = {Redball} alt = "Red Ball"></img>
       :<img src = {Blueball} alt = "Blue Ball"></img>
       } 
