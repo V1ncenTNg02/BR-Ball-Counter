@@ -14,16 +14,30 @@ const pool = new Pool({
 });
 
 app.post('/user', async (req,res) => {
-  const {username, redball, blueball} = req.body;
+  const {username} = req.body;
+
   try{
-    const result = await pool.query(
-      'INSERT INTO vellum (username, redball, blueball) VALUES ($1, $2, $3) RETURNING *',
-      [username, redball, blueball]
+    const existUser = await pool.query(
+      'SELECT * FROM vellum WHERE username = $1',
+      [username]
     );
-    res.status(201).json(result.rows[0]);
-  } catch(e){
-    res.status(400).json({error:e.message});
-  }
+
+    if (existUser.rows.length === 0){
+      try{
+        const result = await pool.query(
+          'INSERT INTO vellum (username, redball, blueball) VALUES ($1, $2, $3) RETURNING *',
+          [username, 0, 0]
+        );
+        res.status(201).json(result.rows[0]);
+      } catch(e){
+        res.status(400).json({error:e.message});
+      }
+    }else{
+      res.status(201).json(existUser.rows[0]);
+    }
+  }catch(e){
+    res.status(404).json({error: e.message});
+  }  
 })
 
 app.get('/stat', async (req, res) => {
@@ -40,7 +54,7 @@ app.get('/stat/:username',async (req, res) => {
   try{
     const result = await pool.query('SELECT * FROM vellum WHERE username = $1',[username]);
     if (result.rows.length === 0){
-      return res.status(404).json({error: 'Item not found'});
+      return res.status(404).json({error: 'user not found'});
     }
     res.json(result.rows[0]);
   } catch(e){
