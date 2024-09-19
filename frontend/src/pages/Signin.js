@@ -13,7 +13,7 @@ const Signin = () => {
   const [error,setError] = useState(false);
   const navigate = useNavigate();
 
-
+//check if the user name is empty and create cookies
   const handleButtonClick = async () => {
     if(username.length === 0){
       setError(true);
@@ -23,7 +23,6 @@ const Signin = () => {
       try{
         const newUser = await createOrFetch(username);
         if(newUser){
-          console.log(newUser);
           setCookie('userName', username, 1);
           setCookie('ballColor', Math.random() < 0.5 ? 'redball' : 'blueball', 1);
           setCookie('visits', 0, 1);
@@ -39,6 +38,7 @@ const Signin = () => {
     }
   };
 
+// if the userName cookie exists, redirect to the home page
   useEffect(() => {
     const userCookie = checkCookie('userName');
     if (userCookie) {

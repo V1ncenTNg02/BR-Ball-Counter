@@ -1,9 +1,11 @@
+//create a cookie using cookie name, value, and expire hours
 const setCookie = (cookieName, value, hours) => {
   const expires = new Date();
   expires.setTime(expires.getTime() + 1000 * 60 * 60 * hours);
   document.cookie = `${cookieName}=${value}; expires=${expires.toUTCString()}`
 }
 
+//check if cookie with a specific cookie name exists
 const checkCookie = (cookieName) => {
   if (document.cookie.split(";").some((cookie) => cookie.trim().startsWith(`${cookieName}`))){
     return true;
@@ -11,6 +13,7 @@ const checkCookie = (cookieName) => {
   return false;
 }
 
+//get cookie by cookie name
 const getCookie = (cookieName) => {
   const name = cookieName + "=";
   const decodedCookie = decodeURIComponent(document.cookie);

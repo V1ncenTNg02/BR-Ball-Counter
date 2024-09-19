@@ -13,6 +13,7 @@ const Home = () => {
   const [blueball, setBlueball] = useState(parseInt(getCookie('blueball') || 0, 10));
   const username = getCookie('userName');
 
+  //update data to backend
   const updateData = async () => {
     try{
       if(color === "redball"){
@@ -33,9 +34,9 @@ const Home = () => {
   
   useEffect(()=>{
     setColor(getCookie('ballColor'));
-    console.log(username);
   },[]);
 
+  //handle exiting page behaviour, once the user refresh, close, or leaves this page, data will be uploaded to server
   useEffect(() => {
     const handleBeforeUnload = () => {
       updateData();

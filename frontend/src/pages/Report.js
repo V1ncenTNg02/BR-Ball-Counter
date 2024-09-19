@@ -15,8 +15,8 @@ const Report = () => {
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
   
+// Get all users when enter the report page
   useEffect(() => {
-    
     const fetchUsers = async () => {
       try {
         const data = await getAllUser(); 
@@ -25,8 +25,6 @@ const Report = () => {
         throw new Error({error:e.massage});
       }
     };
-
-
     setTimeout(()=>fetchUsers(),50);
   }, []);
 

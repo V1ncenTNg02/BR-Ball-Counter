@@ -15,6 +15,7 @@ const pool = new Pool({
   port: 5432, 
 });
 
+//check if the user name exists, if so, return the user; if not, return a newly created user
 app.post('/user', async (req,res) => {
   const {username} = req.body;
   try{
@@ -41,6 +42,7 @@ app.post('/user', async (req,res) => {
   }  
 })
 
+//get statistics of all users
 app.get('/stat', async (req, res) => {
   try{
     const result = await pool.query('SELECT * FROM vellum');
@@ -50,6 +52,7 @@ app.get('/stat', async (req, res) => {
   }
 });
 
+//get user information by username
 app.get('/stat/:username',async (req, res) => {
   const {username} = req.params;
   try{
@@ -63,9 +66,8 @@ app.get('/stat/:username',async (req, res) => {
   }
 })
 
-
+//update user information by username
 app.put('/user/:username', async (req, res) => {
-  console.log("Update Function Called");
   const {username} = req.params;
   const {ballcolor, number} = req.body;
 

@@ -2,8 +2,8 @@ import axios from 'axios';
 
 const Backend_URL='http://localhost:5050';
 
+//Functions to call API
 export const createOrFetch = async (username) => {
-  console.log("Called Successfully");
   try{
     const response = await axios.post(`${Backend_URL}/user`,{username});
     return response.data;
