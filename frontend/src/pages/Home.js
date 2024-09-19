@@ -4,6 +4,7 @@ import { setCookie, getCookie } from '../helper/cookieHelper';
 import { updateRow } from '../service/userService';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
+import '../styles/global.css';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -47,10 +48,12 @@ const Home = () => {
   }, [color, redball, blueball, username]); 
   
   return(
-    <div>
-      <h1> Welcome back! You have visited this page {(color === "redball")? (1+redball):(1+blueball)} times.</h1>
-      <BRBall ballColor = {color}></BRBall>
-      <Button variant="contained" onClick={toReport}>Report</Button>
+    <div className = 'page'>
+      <div className='itemsWrapper'>
+        <h1 className='title'> Welcome back! You have seen {color} {(color === "redball")? (1+redball):(1+blueball)} times.</h1>
+        <BRBall ballColor = {color} id='ball'></BRBall>
+        <Button variant="contained" onClick={toReport}>Report</Button>
+      </div>
     </div>
   );
 }
