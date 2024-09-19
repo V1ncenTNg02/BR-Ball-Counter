@@ -6,7 +6,7 @@ const BRBall = (ballColor) => {
   return(
     <div className = "imgWrapper">
       {
-        ballColor === "red" 
+        ballColor === "redball" 
       ? <img src = {Redball} alt = "Red Ball"></img>
       :<img src = {Blueball} alt = "Blue Ball"></img>
       } 

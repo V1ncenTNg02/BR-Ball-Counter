@@ -1,8 +1,10 @@
 const express = require('express');
 const { Pool } = require('pg');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const app = express();
+app.use(cors()); 
 app.use(bodyParser.json());
 
 const pool = new Pool({
@@ -15,7 +17,7 @@ const pool = new Pool({
 
 app.post('/user', async (req,res) => {
   const {username} = req.body;
-
+  console.log("Attempt 1");
   try{
     const existUser = await pool.query(
       'SELECT * FROM vellum WHERE username = $1',

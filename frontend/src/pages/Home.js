@@ -7,7 +7,6 @@ const Home = () => {
   const [color, setColor] = useState(getCookie('ballColor'));
 
   useEffect(()=>{
-
     const currentVisits = parseInt(visits, 10);
     const newVisits = currentVisits + 1;
     setColor(getCookie('ballColor'));

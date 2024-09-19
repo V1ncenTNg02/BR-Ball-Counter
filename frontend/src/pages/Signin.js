@@ -2,7 +2,8 @@ import React, { useState, useEffect} from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
-import {setCookie, checkCookie} from '../helper/cookieHelper'
+import {setCookie, checkCookie} from '../helper/cookieHelper';
+import { createOrFetch } from '../service/userService';
 
 
 
@@ -12,18 +13,26 @@ const Signin = () => {
   const navigate = useNavigate();
 
 
-  const handleButtonClick = () => {
+  const handleButtonClick = async () => {
     if(username.length === 0){
       setError(true);
     }
     else{
       setError(false);
-      setCookie('userName', username, 1);
-      setCookie('ballColor', Math.random() < 0.5 ? 'red' : 'blue', 1);
-      setCookie('visits', 0, 1);
-      navigate('/home');
+      try{
+        const newUser = await createOrFetch(username);
+        if(newUser){
+          setCookie('userName', username, 1);
+          setCookie('ballColor', Math.random() < 0.5 ? 'redball' : 'blueball', 1);
+          setCookie('visits', 0, 1);
+          navigate('/home');
+        }else{
+          throw new Error("Error happened in signin");
+        };
+      }catch(e){
+        throw new Error("Error: Failing to connect to backend");
+      }
     }
-    
   };
 
   useEffect(() => {
