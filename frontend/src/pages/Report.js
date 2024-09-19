@@ -7,11 +7,15 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import Button from '@mui/material/Button';
+import { useNavigate } from 'react-router-dom';
 
 const Report = () => {
+  const navigate = useNavigate();
   const [users, setUsers] = useState([]);
   
   useEffect(() => {
+    
     const fetchUsers = async () => {
       try {
         const data = await getAllUser(); 
@@ -21,8 +25,12 @@ const Report = () => {
       }
     };
 
-    fetchUsers(); 
+    setTimeout(()=>fetchUsers(),50);
   }, []);
+
+  const toHome = () => {
+    navigate('/home');
+  }
 
   return(
     <div>
@@ -51,6 +59,7 @@ const Report = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      <Button variant="contained" onClick={toHome}>Home</Button>
     </div>
   );
 }

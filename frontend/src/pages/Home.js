@@ -2,18 +2,15 @@ import React, {useEffect, useState} from 'react';
 import BRBall from '../components/BRBall';
 import { setCookie, getCookie } from '../helper/cookieHelper';
 import { updateRow } from '../service/userService';
+import Button from '@mui/material/Button';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
-
+  const navigate = useNavigate();
   const [color, setColor] = useState(getCookie('ballColor'));
   const [redball, setRedball] = useState(parseInt(getCookie('redball') || 0, 10));
   const [blueball, setBlueball] = useState(parseInt(getCookie('blueball') || 0, 10));
   const username = getCookie('userName');
-  
-  useEffect(()=>{
-    setColor(getCookie('ballColor'));
-    console.log(username);
-  },[]);
 
   const updateData = async () => {
     try{
@@ -28,6 +25,15 @@ const Home = () => {
       console.error("Failed to update data before exit");
     }
   }
+
+  const toReport = () => {
+    navigate('/report');
+  }
+  
+  useEffect(()=>{
+    setColor(getCookie('ballColor'));
+    console.log(username);
+  },[]);
 
   useEffect(() => {
     const handleBeforeUnload = () => {
@@ -44,6 +50,7 @@ const Home = () => {
     <div>
       <h1> Welcome back! You have visited this page {(color === "redball")? (1+redball):(1+blueball)} times.</h1>
       <BRBall ballColor = {color}></BRBall>
+      <Button variant="contained" onClick={toReport}>Report</Button>
     </div>
   );
 }
