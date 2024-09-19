@@ -17,7 +17,6 @@ const pool = new Pool({
 
 app.post('/user', async (req,res) => {
   const {username} = req.body;
-  console.log("Attempt 1");
   try{
     const existUser = await pool.query(
       'SELECT * FROM vellum WHERE username = $1',
@@ -66,6 +65,7 @@ app.get('/stat/:username',async (req, res) => {
 
 
 app.put('/user/:username', async (req, res) => {
+  console.log("Update Function Called");
   const {username} = req.params;
   const {ballcolor, number} = req.body;
 

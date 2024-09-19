@@ -1,23 +1,48 @@
 import React, {useEffect, useState} from 'react';
 import BRBall from '../components/BRBall';
 import { setCookie, getCookie } from '../helper/cookieHelper';
+import { updateRow } from '../service/userService';
 
 const Home = () => {
-  const [visits, setVisits] = useState(getCookie('visits'));
-  const [color, setColor] = useState(getCookie('ballColor'));
 
+  const [color, setColor] = useState(getCookie('ballColor'));
+  const [redball, setRedball] = useState(parseInt(getCookie('redball') || 0, 10));
+  const [blueball, setBlueball] = useState(parseInt(getCookie('blueball') || 0, 10));
+  const username = getCookie('userName');
+  
   useEffect(()=>{
-    const currentVisits = parseInt(visits, 10);
-    const newVisits = currentVisits + 1;
     setColor(getCookie('ballColor'));
-    setVisits(newVisits);
-    setCookie('visits', newVisits, 1);
-    console.log(visits);
+    console.log(username);
   },[]);
+
+  const updateData = async () => {
+    try{
+      if(color === "redball"){
+        setCookie('redball', (redball + 1), 1);
+        await updateRow(username, 'redball', (redball + 1));
+      }else{
+        setCookie('blueball', (blueball + 1), 1);
+        await updateRow(username, 'blueball', (blueball + 1));
+      }
+    }catch(e){
+      console.error("Failed to update data before exit");
+    }
+  }
+
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      updateData();
+    };
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+      updateData();
+    };
+  }, [color, redball, blueball, username]); 
   
   return(
     <div>
-      <h1> Welcome back! You have visited this page {visits} times.</h1>
+      <h1> Welcome back! You have visited this page {(color === "redball")? (1+redball):(1+blueball)} times.</h1>
       <BRBall ballColor = {color}></BRBall>
     </div>
   );

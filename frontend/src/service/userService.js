@@ -33,6 +33,7 @@ export const getUser = async(username) => {
 export const updateRow = async (username, ballcolor, number) => {
   try{
     const response = await axios.put(`${Backend_URL}/user/${username}`,{ballcolor,number});
+    
     return response.data;
   }catch(e){
     throw new Error(e.response?.data?.error || 'Error updating data');

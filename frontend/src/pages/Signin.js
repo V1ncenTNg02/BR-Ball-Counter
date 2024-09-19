@@ -22,9 +22,12 @@ const Signin = () => {
       try{
         const newUser = await createOrFetch(username);
         if(newUser){
+          console.log(newUser);
           setCookie('userName', username, 1);
           setCookie('ballColor', Math.random() < 0.5 ? 'redball' : 'blueball', 1);
           setCookie('visits', 0, 1);
+          setCookie('redball',newUser["redball"], 1);
+          setCookie('blueball',newUser["blueball"], 1);
           navigate('/home');
         }else{
           throw new Error("Error happened in signin");
